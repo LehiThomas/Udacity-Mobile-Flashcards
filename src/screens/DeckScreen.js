@@ -7,7 +7,6 @@ class DeckScreen extends Component {
   render() {
     const { navigate } = this.props.navigation;
     const { deck } = this.props.navigation.state.params;
-    console.log(deck);
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <View
@@ -34,7 +33,7 @@ class DeckScreen extends Component {
             buttonText="START"
           />
           <StandardButton
-            pressMe={() => navigate("AddCardScreen")}
+            pressMe={() => navigate("AddCardScreen", { deck: deck })}
             buttonText="ADD CARD"
           />
         </View>

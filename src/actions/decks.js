@@ -1,27 +1,34 @@
-import { GET_DECKS, ADD_DECK } from "../config/consts";
+import { GET_DECKS, CREATE_DECK } from "../config/consts";
+import DeckService from "../services/DeckService";
 
-export const getDecks = decks => {
-  return {
-    type: GET_DECKS,
-    decks
-  };
+// export const getDecks = decks => {
+//   return {
+//     type: GET_DECKS,
+//     decks
+//   };
+// };
+
+export const getDecks = () => dispatch => {
+  return dispatch({
+    type: "FETCH_DECKS",
+    payload: DeckService.getDecksService()
+  });
 };
 
-export const addDeck = deckTitle => {
+export const createDeck = deckTitle => dispatch => {
   const newDeck = {
     [deckTitle]: {
       title: deckTitle,
-      questions: [
-        {
-          question: "What is a closure?",
-          answer:
-            "The combination of a function and the lexical environment within which that function was declared."
-        }
-      ]
+      questions: []
     }
   };
-  return {
-    type: ADD_DECK,
-    deck: newDeck
-  };
+  return DeckService.createDeckService(newDeck).then(res =>
+    dispatch({ type: "FETCH_DECKS", payload: DeckService.getDecksService() })
+  );
+};
+
+export const addCardToDeck = (deck, card) => dispatch => {
+  return DeckService.createCardService(newDeck).then(res =>
+    dispatch({ type: "FETCH_DECKS", payload: DeckService.getDecksService() })
+  );
 };

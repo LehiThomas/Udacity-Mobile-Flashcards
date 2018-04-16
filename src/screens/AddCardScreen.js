@@ -1,9 +1,19 @@
 import React, { Component } from "react";
 import { View, Text, TextInput } from "react-native";
+import { connect } from "react-redux";
 
 import StandardButton from "../components/StandardButton";
+import { addCardToDeck } from "../actions/decks";
 
 class AddCardScreen extends Component {
+  createCard = () => {
+    const card = {
+      question: this.state.question,
+      answer: this.state.answer
+    }
+    this.props.addCardToDeck(this.props.deck.id, card)
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -45,7 +55,7 @@ class AddCardScreen extends Component {
           }}
         >
           <StandardButton
-            pressMe={() => navigate("DeckScreen")}
+            pressMe={() => this.createCard()}
             buttonText="SUBMIT"
           />
         </View>
@@ -54,4 +64,8 @@ class AddCardScreen extends Component {
   }
 }
 
-export default AddCardScreen;
+const mapDispatchToProps = dispatch => ({
+  addCardToDeck: (deckId, card) => dispatch(addCardToDeck(deckId, card))
+});
+
+export default connect(null, mapDispatchToProps)(AddCardScreen);

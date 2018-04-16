@@ -1,25 +1,15 @@
 import React, { Component } from "react";
 import { ScrollView, Text, View } from "react-native";
 import _ from "lodash";
+import { connect } from "react-redux";
 
 import DeckListItem from "../components/DeckListItem";
 import DeckService from "../services/DeckService";
+import { getDecks } from "../actions/decks";
 
 class DeckListScreen extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      decks: {}
-    };
-  }
-
   componentDidMount() {
-    DeckService.getDecksService().then(res => {
-      this.setState({
-        decks: res
-      });
-    });
+    this.props.getDecks();
   }
 
   displayDecks = decks => {
@@ -39,20 +29,28 @@ class DeckListScreen extends Component {
   };
 
   render() {
-    const { decks } = this.state;
-    console.log(">>>", decks);
+    const { decks } = this.props;
     return (
-      <ScrollView
-        contentContainerStyle={{
-          flex: 1,
-          margin: 20,
-          alignItems: "center"
-        }}
-      >
-        {this.displayDecks(decks)}
-      </ScrollView>
+      <View>
+        <ScrollView
+          contentContainerStyle={{
+            margin: 20,
+            alignItems: "center"
+          }}
+        >
+          {this.displayDecks(decks)}
+        </ScrollView>
+      </View>
     );
   }
 }
 
-export default DeckListScreen;
+const mapStateToProps = ({ deckReducer }) => ({
+  decks: deckReducer
+});
+
+const mapDispatchToProps = dispatch => ({
+  getDecks: () => dispatch(getDecks())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckListScreen);

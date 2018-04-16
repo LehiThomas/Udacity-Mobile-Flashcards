@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { View, Text, TextInput } from "react-native";
+import { connect } from "react-redux";
 
 import DeckService from "../services/DeckService";
-
 import StandardButton from "../components/StandardButton";
+import { createDeck } from "../actions/decks"
 
 class NewDeckScreen extends Component {
   constructor() {
@@ -16,7 +17,7 @@ class NewDeckScreen extends Component {
 
   createNewDeck = () => {
     const { navigate } = this.props.navigation;
-    DeckService.createDeckService(this.state.deckTitle);
+    this.props.createDeck(this.state.deckTitle);
     navigate("DeckList");
   };
 
@@ -52,4 +53,8 @@ class NewDeckScreen extends Component {
   }
 }
 
-export default NewDeckScreen;
+const mapDispatchToProps = dispatch => ({
+  createDeck: deckTitle => dispatch(createDeck(deckTitle))
+});
+
+export default connect(null, mapDispatchToProps)(NewDeckScreen);

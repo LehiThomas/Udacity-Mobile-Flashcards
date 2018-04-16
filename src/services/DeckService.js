@@ -44,13 +44,11 @@ class DeckService {
     });
   };
 
-  createDeck = async deckTitle => {
-    const deck = {
-      [deckTitle]: {
-        title: deckTitle,
-        questions: []
-      }
-    };
+  createDeckService = async deck => {
+    return await AsyncStorage.mergeItem(DECK_STORAGE, JSON.stringify(deck));
+  };
+
+  createCardService = async deck => {
     return await AsyncStorage.mergeItem(DECK_STORAGE, JSON.stringify(deck));
   };
 }
