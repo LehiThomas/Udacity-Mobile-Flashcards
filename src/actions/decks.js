@@ -1,13 +1,6 @@
 import { GET_DECKS, CREATE_DECK } from "../config/consts";
 import DeckService from "../services/DeckService";
 
-// export const getDecks = decks => {
-//   return {
-//     type: GET_DECKS,
-//     decks
-//   };
-// };
-
 export const getDecks = () => dispatch => {
   return dispatch({
     type: "FETCH_DECKS",
