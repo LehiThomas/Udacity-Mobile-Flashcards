@@ -47,8 +47,7 @@ class QuizScreen extends Component {
         style={{
           flex: 1,
           margin: 20,
-          justifyContent: "center",
-          alignItems: "center"
+          justifyContent: "center"
         }}
       >
         {this.state.questionIndex < questions.length ? (
@@ -57,7 +56,7 @@ class QuizScreen extends Component {
               flex: 1,
               justifyContent: "flex-start",
               alignItems: "center",
-              paddingTop: 30
+              paddingTop: 40
             }}
           >
             <View style={{ height: 15, position: "absolute", left: 0, top: 0 }}>
@@ -66,7 +65,7 @@ class QuizScreen extends Component {
               </Text>
             </View>
             {!this.state.showAnswer && (
-              <View style={{}}>
+              <View style={{ alignItems: "center", }}>
                 <Text style={{ color: "grey", fontSize: 40 }}>
                   {questions[this.state.questionIndex].question}
                 </Text>
@@ -89,7 +88,7 @@ class QuizScreen extends Component {
                 />
               </View>
             )}
-            <View style={{ position: "absolute", bottom: 0, marginBottom: 50 }}>
+            <View style={{ position: "absolute", bottom: 50 }}>
               <StandardButton
                 pressMe={() => this.setScore(1)}
                 buttonText="CORRECT"
@@ -101,13 +100,13 @@ class QuizScreen extends Component {
             </View>
           </View>
         ) : (
-          <Results
-            goBack={this.goBack}
-            restartQuiz={this.restartQuiz}
-            score={this.state.score}
-            questionCount={questions.length}
-          />
-        )}
+            <Results
+              goBack={this.goBack}
+              restartQuiz={this.restartQuiz}
+              score={this.state.score}
+              questionCount={questions.length}
+            />
+          )}
       </View>
     );
   }

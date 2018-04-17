@@ -1,5 +1,5 @@
 import { AsyncStorage } from "react-native";
-import { DECK_STORAGE } from "../config/consts";
+import { DECK_STORAGE_KEY } from "../config/consts";
 
 class DeckService {
   constructor() {
@@ -32,37 +32,30 @@ class DeckService {
 
   setDefaultData = async () => {
     return await AsyncStorage.setItem(
-      DECK_STORAGE,
+      DECK_STORAGE_KEY,
       JSON.stringify(this.initialState)
     ).then(() => this.initialState);
   };
 
   getDecksService = async () => {
-    return await AsyncStorage.getItem(DECK_STORAGE).then(res => {
-      // if (res === null) {
-      //   return this.setDefaultData();
-      // } else {
-      //   return JSON.parse(res);
-      // }
-      return JSON.parse(res);
-    });
+    return await AsyncStorage.getItem(DECK_STORAGE_KEY).then(JSON.parse);
   };
 
   getDeckService = async id => {
-    return await AsyncStorage.getItem(DECK_STORAGE).then(res => {
-      const data = JSON.parse(res);
-      return data[id];
+    return await AsyncStorage.getItem(DECK_STORAGE_KEY).then(res => {
+      const decks = JSON.parse(res);
+      return decks[id];
     });
   };
 
   createDeckService = async deck => {
-    return await AsyncStorage.mergeItem(DECK_STORAGE, JSON.stringify(deck));
+    return await AsyncStorage.mergeItem(DECK_STORAGE_KEY, JSON.stringify(deck));
   };
 
   createCardService = async (deck, card) => {
     deck.questions.push(card);
     return await AsyncStorage.mergeItem(
-      DECK_STORAGE,
+      DECK_STORAGE_KEY,
       JSON.stringify({ [deck.title]: deck })
     );
   };

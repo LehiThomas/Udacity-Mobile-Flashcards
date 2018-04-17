@@ -41,14 +41,19 @@ export default StackNavigator({
   DeckScreen: {
     screen: DeckScreen,
     navigationOptions: {
-      headerTitle: "Deck List"
+      headerTitle: "Deck"
     }
   },
   AddCardScreen: {
     screen: AddCardScreen,
     navigationOptions: {
-      headerTitle: "Deck"
+      headerTitle: "Add Card"
     }
   },
-  QuizScreen: { screen: QuizScreen }
+  QuizScreen: {
+    screen: QuizScreen,
+    navigationOptions: {
+      headerTitle: "Quiz"
+    }
+  }
 });

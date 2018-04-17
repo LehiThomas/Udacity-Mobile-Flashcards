@@ -3,6 +3,7 @@ import { View, Text, Alert } from "react-native";
 
 import StandardButton from "../components/StandardButton";
 import QuizScreen from "./QuizScreen";
+import NotificationsService from "../services/NotificationsService";
 
 class DeckScreen extends Component {
   startQuiz = (navigate, deck) => {
@@ -11,6 +12,8 @@ class DeckScreen extends Component {
         "You have 0 cards in your deck. Please add a card before starting the quiz."
       );
     } else {
+      NotificationsService.clearLocalNotifications()
+        .then(NotificationsService.setLocalNotification);
       navigate("QuizScreen", { deck: deck });
     }
   };

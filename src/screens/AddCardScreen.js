@@ -23,6 +23,7 @@ class AddCardScreen extends Component {
       question: question,
       answer: answer
     };
+
     if (question === "" || answer === "") {
       Alert.alert("Please give your deck a title");
     } else {
