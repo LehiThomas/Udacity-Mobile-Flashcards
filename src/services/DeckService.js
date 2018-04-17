@@ -39,11 +39,12 @@ class DeckService {
 
   getDecksService = async () => {
     return await AsyncStorage.getItem(DECK_STORAGE).then(res => {
-      if (res === null) {
-        return this.setDefaultData();
-      } else {
-        return JSON.parse(res);
-      }
+      // if (res === null) {
+      //   return this.setDefaultData();
+      // } else {
+      //   return JSON.parse(res);
+      // }
+      return JSON.parse(res);
     });
   };
 

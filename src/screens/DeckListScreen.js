@@ -24,7 +24,15 @@ class DeckListScreen extends Component {
         </View>
       );
     } else {
-      return <View />;
+      return (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Text style={{ color: "grey", fontSize: 30 }}>
+            You have no decks. Go to the "ADD NEW DECK" screen to create one.
+          </Text>
+        </View>
+      );
     }
   };
 
