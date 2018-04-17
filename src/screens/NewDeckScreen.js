@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { View, Text, TextInput } from "react-native";
+import { View, Text, TextInput, Alert } from "react-native";
 import { connect } from "react-redux";
 
 import DeckService from "../services/DeckService";
 import StandardButton from "../components/StandardButton";
-import { createDeck } from "../actions/decks"
+import { createDeck } from "../actions/decks";
 
 class NewDeckScreen extends Component {
   constructor() {
@@ -17,8 +17,12 @@ class NewDeckScreen extends Component {
 
   createNewDeck = () => {
     const { navigate } = this.props.navigation;
-    this.props.createDeck(this.state.deckTitle);
-    navigate("DeckList");
+    if (this.state.deckTitle === "") {
+      Alert.alert("Please give your deck a title");
+    } else {
+      this.props.createDeck(this.state.deckTitle);
+      navigate("DeckList");
+    }
   };
 
   render() {

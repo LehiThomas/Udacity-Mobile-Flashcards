@@ -21,7 +21,7 @@ export const createDeck = deckTitle => dispatch => {
 };
 
 export const addCardToDeck = (deck, card) => dispatch => {
-  return DeckService.createCardService(newDeck).then(res =>
+  return DeckService.createCardService(deck, card).then(res =>
     dispatch({ type: "FETCH_DECKS", payload: DeckService.getDecksService() })
   );
 };

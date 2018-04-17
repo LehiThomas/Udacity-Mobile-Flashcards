@@ -6,16 +6,36 @@ import StandardButton from "../components/StandardButton";
 import { addCardToDeck } from "../actions/decks";
 
 class AddCardScreen extends Component {
-  createCard = () => {
-    const card = {
-      question: this.state.question,
-      answer: this.state.answer
-    }
-    this.props.addCardToDeck(this.props.deck.id, card)
+  constructor() {
+    super();
+
+    this.state = {
+      question: "",
+      answer: ""
+    };
   }
 
-  render() {
+  createCard = () => {
+    const { deck } = this.props.navigation.state.params;
     const { navigate } = this.props.navigation;
+    const { question, answer } = this.state;
+    const card = {
+      question: question,
+      answer: answer
+    };
+    if (question === "" || answer === "") {
+      Alert.alert("Please give your deck a title");
+    } else {
+      this.props.addCardToDeck(deck, card);
+      this.setState({
+        question: "",
+        answer: ""
+      });
+      navigate("DeckListScreen");
+    }
+  };
+
+  render() {
     return (
       <View style={{ flex: 1, justifyContent: "center" }}>
         <View
@@ -29,7 +49,7 @@ class AddCardScreen extends Component {
           <Text style={{ color: "grey", fontSize: 50 }}>Question:</Text>
           <TextInput
             style={{ fontSize: 20, padding: 15 }}
-            placeholder="deck title"
+            placeholder="question"
             onChangeText={text => this.setState({ question: text })}
           />
         </View>
@@ -44,7 +64,7 @@ class AddCardScreen extends Component {
           <Text style={{ color: "grey", fontSize: 50 }}>Answer:</Text>
           <TextInput
             style={{ fontSize: 20, padding: 15 }}
-            placeholder="deck title"
+            placeholder="answer"
             onChangeText={text => this.setState({ answer: text })}
           />
         </View>
@@ -65,7 +85,7 @@ class AddCardScreen extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addCardToDeck: (deckId, card) => dispatch(addCardToDeck(deckId, card))
+  addCardToDeck: (deck, card) => dispatch(addCardToDeck(deck, card))
 });
 
 export default connect(null, mapDispatchToProps)(AddCardScreen);

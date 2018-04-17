@@ -39,8 +39,18 @@ class DeckService {
 
   getDecksService = async () => {
     return await AsyncStorage.getItem(DECK_STORAGE).then(res => {
-      console.log("2", res);
-      return res === null ? this.setDefaultData() : JSON.parse(res);
+      if (res === null) {
+        return this.setDefaultData();
+      } else {
+        return JSON.parse(res);
+      }
+    });
+  };
+
+  getDeckService = async id => {
+    return await AsyncStorage.getItem(DECK_STORAGE).then(res => {
+      const data = JSON.parse(res);
+      return data[id];
     });
   };
 
@@ -48,8 +58,12 @@ class DeckService {
     return await AsyncStorage.mergeItem(DECK_STORAGE, JSON.stringify(deck));
   };
 
-  createCardService = async deck => {
-    return await AsyncStorage.mergeItem(DECK_STORAGE, JSON.stringify(deck));
+  createCardService = async (deck, card) => {
+    deck.questions.push(card);
+    return await AsyncStorage.mergeItem(
+      DECK_STORAGE,
+      JSON.stringify({ [deck.title]: deck })
+    );
   };
 }
 
